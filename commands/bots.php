@@ -16,7 +16,7 @@ foreach($bots as $key => $value){
             "offline" => $off
         };
 
-        $substitute .= "$listKey @$username";
+        $substitute .= "$listKey @$username\n";
         $keyboard .= "[{\"text\":\"@$username\",\"url\":\"https://t.me/$username\"}, {\"text\":\"ℹ️\", \"callback_data\": \"bots:$username\"}, {\"text\":\"🗂\", ";
         
         if(repoExists($github_username, $username)){
