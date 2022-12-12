@@ -22,8 +22,8 @@ $commandHandlers = [ // What defines a command
     ".",
 ];
 
-$github_username = "SebaOfficial"; // Your github username
+$github_username = ""; // Your github username
 $github_link = "https://github.com/$github_username";
-
+$github_access_token = ""; // Your github access token (https://github.com/settings/tokens/new)
 
 ?>

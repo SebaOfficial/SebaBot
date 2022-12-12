@@ -231,10 +231,15 @@ function getSupport($support_id){
 
 // Returns the result of a repostory on github
 function getRepo(string $username, string $repoName){
+    $token = $GLOBALS['github_access_token'];
+
     $url = "https://api.github.com/repos/$username/$repoName";
     $ch = curl_init($url);
     curl_setopt($ch, CURLOPT_USERAGENT, 'MyPHPApp/1.0');
     curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+    curl_setopt($ch, CURLOPT_HTTPHEADER, [
+        "Authorization: token $token",
+    ]);
     $response = curl_exec($ch);
 
     return json_decode($response, true);
