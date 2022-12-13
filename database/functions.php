@@ -19,19 +19,24 @@ function getUser(int $id){
 
 }
 
-// Returns an array of all user ids
-function getAllUsers(){
+// Returns an array of all user informations
+function getAllUsers(array $type = null){
     $db = $GLOBALS['db'];
+    
+    if(isset($type)){ // To return only the ids
+        
+        $key = $type[0];
+        $value = $type[1];
+        $get = mysqli_query($db, "SELECT * FROM users WHERE $key='$value'");
 
-    $get = mysqli_query($db, "SELECT * FROM users");
-    $get = mysqli_fetch_all($get, MYSQLI_ASSOC);
-    $users = [];
-
-    foreach($get as $key => $value){
-        $users[] = $value['id'];
+    } else{
+        $get = mysqli_query($db, "SELECT * FROM users");
     }
 
-    return $users;
+    $get = mysqli_fetch_all($get, MYSQLI_ASSOC);
+
+    return $get;
+    
 }
 
 // Adds an user in the database
@@ -232,6 +237,19 @@ function getSupport($support_id){
     } else{
         return null;
     }
+}
+
+function getAllSupports(string $type = null){
+    $db = $GLOBALS['db'];
+
+    if(isset($type)){
+        $get = mysqli_query($db, "SELECT * FROM supports WHERE type='$type'");
+    } else{
+        $get = mysqli_query($db, "SELECT * FROM supports");
+    }
+    
+    $get = mysqli_fetch_all($get, MYSQLI_ASSOC);
+    return $get;
 }
 
 // Returns the result of a repostory on github
