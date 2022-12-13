@@ -43,6 +43,21 @@ function editMessage($chatid, $messageid, $text, $keyboard = null, $parseMode = 
     ]);
 }
 
+// Copies a message in another chat
+function copyMessage($from, $to, $messageid, $keyboard, $new_caption = null, $reply = null, $notification = false, $parseMode = "HTML", $allowReply = true){
+    return bot("copyMessage", [
+        "chat_id" => $to,
+        "from_chat_id" => $from,
+        "message_id" => $messageid,
+        "caption" => $new_caption,
+        "parse_mode" => $parseMode,
+        "disable_notification" => $notification,
+        "reply_to_message_id" => $reply,
+        "allow_sending_without_reply" => $allowReply,
+        "reply_markup" => $keyboard
+    ]);
+}
+
 // Answers a callback from a button
 function answerCall($callbackId, $text, $popup = false, $url = null){
     return bot("answerCallbackQuery", [
