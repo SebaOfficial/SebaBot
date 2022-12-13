@@ -183,6 +183,11 @@ function setUtil(int $id, int $util, string $value){
     return $set;
 }
 
+function updateStatus(int $id, string $status){
+    $db = $GLOBALS['db'];
+    $update = mysqli_query($db, "UPDATE users SET status='$status' WHERE id='$id'");
+    return $update;
+}
 
 function setLang(int $id, string $lang){
     $db = $GLOBALS['db'];
