@@ -85,6 +85,11 @@ if($update){ // If there's a Telegram update
 
     }
 
+
+    if(isset($my_chat_member_status) && $chat_type == 'private'){
+        require_once "commands/helpers/status.php";
+    }
+
 } else{
     exit;
 }

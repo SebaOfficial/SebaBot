@@ -50,6 +50,13 @@ if($update){
         
     }
 
+    if(isset($update['my_chat_member'])){
+        $my_chat_member = $update['my_chat_member'];
+        $my_chat_member_status = $my_chat_member['new_chat_member']['status'];
+        $chat = $my_chat_member['chat'];
+        $from = $my_chat_member['from'];
+    }
+
     if(isset($chat)){
         $chat_id = $chat['id'];
         $chat_type = $chat['type'];
