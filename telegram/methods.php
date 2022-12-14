@@ -44,7 +44,7 @@ function editMessage($chatid, $messageid, $text, $keyboard = null, $parseMode = 
 }
 
 // Copies a message in another chat
-function copyMessage($from, $to, $messageid, $keyboard, $new_caption = null, $reply = null, $notification = false, $parseMode = "HTML", $allowReply = true){
+function copyMessage($from, $to, $messageid, $keyboard = null, $new_caption = null, $reply = null, $notification = false, $parseMode = "HTML", $allowReply = true){
     return bot("copyMessage", [
         "chat_id" => $to,
         "from_chat_id" => $from,
