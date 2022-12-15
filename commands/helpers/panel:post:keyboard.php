@@ -43,7 +43,7 @@ if(isset($data)){ // The user confirmed the post
             sleep(1);
         }
 
-        copyMessage($value['id'], $chat_id, $util3);
+        copyMessage($chat_id, $value['id'], $util3, json_encode($reply_keyboard));
     }
 
     editMessage($chat_id, $message_id,
