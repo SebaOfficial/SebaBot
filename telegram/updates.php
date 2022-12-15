@@ -21,6 +21,7 @@ if($update){
 
     if(isset($message)){
         $message_id = $message['message_id'];
+        
         if(isset($message['from'])){
             $from = $message['from'];
         }
@@ -33,9 +34,14 @@ if($update){
             $text = $message['text'];
         }
 
+        if(isset($message['reply_to_message'])){
+            $reply = $update['reply_to_message'];
+        }
+
         if(isset($message['caption'])){
             $text = $message['caption'];
         }
+
     }
 
     if(isset($update["callback_query"])){
@@ -47,6 +53,10 @@ if($update){
         $chat = $callback['message']['chat'];
         $from = $callback['from'];
         $data_text = $callback["message"]["text"];
+
+        if(isset($callback['message']['reply_to_message'])){
+            $reply = $callback['message']['reply_to_message'];
+        }
         
     }
 
@@ -69,6 +79,10 @@ if($update){
             $username = $from['username'];
         }
         $mention = "<a href='tg://user?id=$id'>$name</a>";
+    }
+
+    if(isset($reply)){
+        $reply_keyboard = $reply['reply_markup'];
     }
     
 }
