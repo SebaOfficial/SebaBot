@@ -1,8 +1,30 @@
 <?php
 
+$status = getChatMember($id, $force_channel)['result']['status'];
+$is_subscribed = ($status == 'member' || $status == 'administrator' || $status == 'creator');
+$is_banned = ($status == 'kicked');
+
 if(isset($text)){
 
-    if($text == "chat"){ // If the user has sent the command to chat
+    if($is_banned){ // The user is banned from the channel
+
+        sendMessage($chat_id, 
+            getTexts("CHAT:ERROR:BANNED_TXT", $lang),
+            composeKeyboard("chat:error:banned", $lang)
+        );
+
+    }
+
+    elseif(!$is_subscribed){ // The user isn't subscribed
+
+        sendMessage($chat_id, 
+            getTexts("CHAT:ERROR:NOTSUB_TXT", $lang),
+            composeKeyboard("chat:error:notsub", $lang)
+        );
+
+    }
+
+    elseif($text == "chat"){ // If the user has sent the command to chat
 
         sendMessage($chat_id, 
             getTexts("CHAT_TXT", $lang),
@@ -36,14 +58,40 @@ if(isset($text)){
 
 if(isset($data)){
 
-    if($isChatting == "true"){
+    if($is_banned){ // The user is banned from the channel
+
+        editMessage($chat_id, $message_id,
+            getTexts("CHAT:ERROR:BANNED_TXT", $lang),
+            composeKeyboard("chat:error:banned", $lang)
+        );
+        answerCall($callbackId,
+            getTexts("CHAT_CALLBACK", $lang)
+        );
+
+    }
+
+    elseif(!$is_subscribed){ // The user isn't subscribed
+
+        editMessage($chat_id, $message_id,
+            getTexts("CHAT:ERROR:NOTSUB_TXT", $lang),
+            composeKeyboard("chat:error:notsub", $lang)
+        );
+        answerCall($callbackId,
+            getTexts("CHAT_CALLBACK", $lang)
+        );
+
+    }
+
+    elseif($isChatting == "true"){
 
         answerCall($callbackId,
-            getTexts("CHAT_ERROR", $lang),
+            getTexts("CHAT:ERROR:INCHAT_TXT", $lang),
             true
         );
 
-    } elseif(str_contains($data, ":")){
+    } 
+    
+    elseif(str_contains($data, ":")){
         
         setUtil($id, 1, $message_id);
         $messageToEdit = $util1; // The message_id to edit
@@ -61,7 +109,9 @@ if(isset($data)){
             getTexts($data . "_CALLBACK", $lang)
         );
 
-    } else{
+    } 
+    
+    else{
 
         editMessage($chat_id, $message_id,
             getTexts("CHAT_TXT", $lang),

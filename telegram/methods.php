@@ -70,7 +70,7 @@ function getWebhookInfo(){
 }
 
 // Returns a ChatMember object
-function getMember($userid, $chatid){
+function getChatMember($userid, $chatid){
     return bot("getChatMember", [
         "user_id" => $userid,
         "chat_id" => $chatid
