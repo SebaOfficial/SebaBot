@@ -9,6 +9,7 @@ const token = "YOUR_TOKEN_HERE"; // The token that botfather gave you
 $owner = 123; // Your telegram id
 $log = 123; // The log channel, the bot must be admin, set this to false to stop logging
 $chat_group = 123; // The private group where the requests from the "chat" section will come, set it to '$owner' to send them to private chat
+$force_channel = 123; // The channel id where the user must be subscribed to use the /chat function
 
 $db_host = "localhost"; // The host of your database
 $db_username = "root"; // The username of your database
